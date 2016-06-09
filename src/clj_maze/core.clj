@@ -70,24 +70,7 @@
       rooms)))
 
 
-(defn print-room [room]
-  ; start / bottom / end check
-  (cond
-    (and (:bottom? room) (:start? room))
-    (print ">")
-    (:start? room)
-    (print "v")
-    (and (:bottom? room) (:end? room))
-    (print "±")
-    (:end? room)
-    (print "+")
-    (:bottom? room)
-    (print "_")
-    :else (print " "))
-  ; either wall or not
-  (if (:right? room)
-    (print "|")
-    (print " ")))
+
 
 (defn -main []
   (let [rooms (create-rooms)
@@ -101,5 +84,21 @@
     (doseq [row rooms]
       (print "|")
       (doseq [room row]
-        (print-room room))
+        ; start / bottom / end check
+        (cond
+          (and (:bottom? room) (:start? room))
+          (print ">")
+          (:start? room)
+          (print "v")
+          (and (:bottom? room) (:end? room))
+          (print "±")
+          (:end? room)
+          (print "+")
+          (:bottom? room)
+          (print "_")
+          :else (print " "))
+        ; either wall or not
+        (if (:right? room)
+          (print "|")
+          (print " ")))
         (println))))
